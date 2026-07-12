@@ -9,10 +9,10 @@ interface ResultsProps {
 }
 
 function headline(ratio: number): string {
-  if (ratio === 1) return 'Flawless.'
-  if (ratio >= 0.8) return 'Sharp eye.'
-  if (ratio >= 0.5) return 'Getting there.'
-  return 'New faces take time.'
+  if (ratio === 1) return 'Foutloos.'
+  if (ratio >= 0.8) return 'Scherp oog.'
+  if (ratio >= 0.5) return 'Het begint te komen.'
+  return 'Nieuwe gezichten kosten tijd.'
 }
 
 export default function Results({ summary, mode, onPlayAgain, onChangeSetup }: ResultsProps) {
@@ -20,7 +20,7 @@ export default function Results({ summary, mode, onPlayAgain, onChangeSetup }: R
 
   return (
     <div className="results">
-      <p className="eyebrow">Roll developed</p>
+      <p className="eyebrow">Rolletje ontwikkeld</p>
       <h1 className="results-headline">{headline(correctCount / total)}</h1>
       <motion.p
         className="results-score"
@@ -28,21 +28,21 @@ export default function Results({ summary, mode, onPlayAgain, onChangeSetup }: R
         animate={{ scale: 1, opacity: 1 }}
         transition={{ type: 'spring', stiffness: 260, damping: 16, delay: 0.15 }}
       >
-        {score} pts
+        {score} pt
       </motion.p>
       <p className="results-stats">
-        You named <strong>{correctCount}</strong> of <strong>{total}</strong>
+        Je noemde <strong>{correctCount}</strong> van <strong>{total}</strong>
         {bestStreak >= 2 && (
           <>
             {' '}
-            · best streak <strong>🔥 ×{bestStreak}</strong>
+            · beste reeks <strong>🔥 ×{bestStreak}</strong>
           </>
         )}
       </p>
 
       {missed.length > 0 && (
         <section className="missed">
-          <h2 className="missed-title">Worth another look</h2>
+          <h2 className="missed-title">Nog een keer bekijken</h2>
           <ul className="missed-grid">
             {missed.map((person, i) => (
               <motion.li
@@ -62,10 +62,10 @@ export default function Results({ summary, mode, onPlayAgain, onChangeSetup }: R
 
       <div className="results-actions">
         <button className="button button-start" onClick={onPlayAgain}>
-          Play again — {mode === 'open' ? 'open answer' : 'multiple choice'}
+          Opnieuw spelen — {mode === 'open' ? 'open antwoord' : 'meerkeuze'}
         </button>
         <button className="button button-ghost" onClick={onChangeSetup}>
-          Change mode or photos
+          Modus of foto's wijzigen
         </button>
       </div>
     </div>

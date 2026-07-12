@@ -21,7 +21,7 @@ export default function Landing({ people, onRosterChange, onStart }: LandingProp
   const loadFiles = (files: File[]) => {
     const roster = filesToPeople(files)
     if (roster.length < 2) {
-      setLoadError('That folder needs at least two photos with names as filenames.')
+      setLoadError('Die map heeft minstens twee foto’s nodig met namen als bestandsnaam.')
       return
     }
     setLoadError(null)
@@ -44,11 +44,11 @@ export default function Landing({ people, onRosterChange, onStart }: LandingProp
   return (
     <div className="landing">
       <header className="hero">
-        <p className="eyebrow">A name-to-face game</p>
+        <p className="eyebrow">Een naam-aan-gezicht spel</p>
         <h1 className="wordmark">
           Face<span className="wordmark-flash">Flash</span>
         </h1>
-        <p className="tagline">How fast can you put a name to a face?</p>
+        <p className="tagline">Hoe snel kun jij een naam aan een gezicht koppelen?</p>
       </header>
 
       <input
@@ -79,26 +79,26 @@ export default function Landing({ people, onRosterChange, onStart }: LandingProp
           onDragLeave={() => setDragOver(false)}
           onDrop={onDrop}
         >
-          <p className="dropzone-title">Drop a folder of faces</p>
+          <p className="dropzone-title">Sleep een map met gezichten hierheen</p>
           <p className="dropzone-hint">
-            Each filename becomes the answer — <code>maya-patel.jpg</code> is Maya Patel.
+            Elke bestandsnaam wordt het antwoord — <code>maya-patel.jpg</code> is Maya Patel.
           </p>
           <div className="dropzone-actions">
             <button className="button" onClick={() => folderInput.current?.click()}>
-              Choose a folder
+              Kies een map
             </button>
             <button className="button button-ghost" onClick={() => filesInput.current?.click()}>
-              Pick photos
+              Kies foto's
             </button>
           </div>
           <button className="link-button" onClick={() => onRosterChange(samplePeople)}>
-            No photos handy? Play the sample cast →
+            Geen foto's bij de hand? Speel met de voorbeeldcast →
           </button>
           {loadError && <p className="load-error">{loadError}</p>}
         </div>
       ) : (
         <div className="setup">
-          <div className="roster-strip" aria-label={`${people.length} faces loaded`}>
+          <div className="roster-strip" aria-label={`${people.length} gezichten geladen`}>
             {people.slice(0, 8).map((person, i) => (
               <motion.div
                 key={person.id}
@@ -113,21 +113,21 @@ export default function Landing({ people, onRosterChange, onStart }: LandingProp
             {people.length > 8 && <span className="roster-more">+{people.length - 8}</span>}
           </div>
           <p className="roster-count">
-            <strong>{people.length} faces</strong> ready ·{' '}
+            <strong>{people.length} gezichten</strong> klaar ·{' '}
             <button className="link-button" onClick={() => onRosterChange([])}>
-              swap photos
+              andere foto's
             </button>
           </p>
 
-          <div className="mode-picker" role="radiogroup" aria-label="Game mode">
+          <div className="mode-picker" role="radiogroup" aria-label="Spelmodus">
             <button
               role="radio"
               aria-checked={mode === 'choice'}
               className={`mode-card${mode === 'choice' ? ' is-selected' : ''}`}
               onClick={() => setMode('choice')}
             >
-              <span className="mode-name">Multiple choice</span>
-              <span className="mode-blurb">Pick from four. Warm up while faces are new.</span>
+              <span className="mode-name">Meerkeuze</span>
+              <span className="mode-blurb">Kies uit vier opties. Warm op terwijl de gezichten nieuw zijn.</span>
             </button>
             <button
               role="radio"
@@ -135,13 +135,13 @@ export default function Landing({ people, onRosterChange, onStart }: LandingProp
               className={`mode-card${mode === 'open' ? ' is-selected' : ''}`}
               onClick={() => setMode('open')}
             >
-              <span className="mode-name">Open answer</span>
-              <span className="mode-blurb">Type each name. One typo forgiven.</span>
+              <span className="mode-name">Open antwoord</span>
+              <span className="mode-blurb">Typ elke naam. Eén typefout wordt vergeven.</span>
             </button>
           </div>
 
           <button className="button button-start" onClick={() => onStart(mode)}>
-            Start — {people.length} rounds
+            Start — {people.length} rondes
           </button>
         </div>
       )}

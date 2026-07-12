@@ -97,7 +97,7 @@ export default function Game({ people, mode, onFinish }: GameProps) {
         <span className="hud-brand">
           Face<span className="wordmark-flash">Flash</span>
         </span>
-        <span className="hud-counter" aria-label={`Round ${index + 1} of ${rounds.length}`}>
+        <span className="hud-counter" aria-label={`Ronde ${index + 1} van ${rounds.length}`}>
           {String(index + 1).padStart(2, '0')}/{String(rounds.length).padStart(2, '0')}
         </span>
         <span className="hud-right">
@@ -113,7 +113,7 @@ export default function Game({ people, mode, onFinish }: GameProps) {
               </motion.span>
             )}
           </AnimatePresence>
-          <span className="hud-score">{score} pts</span>
+          <span className="hud-score">{score} pt</span>
         </span>
       </header>
 
@@ -141,20 +141,20 @@ export default function Game({ people, mode, onFinish }: GameProps) {
             className={`answer-input${outcome ? ` is-${outcome}` : ''}`}
             value={guess}
             onChange={(event) => setGuess(event.target.value)}
-            placeholder="Type their name…"
+            placeholder="Typ de naam…"
             disabled={phase === 'reveal'}
             autoComplete="off"
             autoCapitalize="words"
             spellCheck={false}
-            aria-label="Your guess"
+            aria-label="Jouw antwoord"
           />
           {phase === 'guess' ? (
             <div className="answer-actions">
               <button type="submit" className="button" disabled={!guess.trim()}>
-                Flash it
+                Flash 'm
               </button>
               <button type="button" className="link-button" onClick={() => resolve(false)}>
-                No idea, show me
+                Geen idee, laat maar zien
               </button>
             </div>
           ) : (
@@ -163,7 +163,7 @@ export default function Game({ people, mode, onFinish }: GameProps) {
         </form>
       ) : (
         <div className="answer-area">
-          <div className="choices" role="group" aria-label="Who is this?">
+          <div className="choices" role="group" aria-label="Wie is dit?">
             {choices.map((choice, i) => {
               const state =
                 phase === 'reveal'
@@ -189,7 +189,7 @@ export default function Game({ people, mode, onFinish }: GameProps) {
         </div>
       )}
 
-      <ol className="filmstrip" aria-label="Progress">
+      <ol className="filmstrip" aria-label="Voortgang">
         {rounds.map((round, i) => (
           <li
             key={round.id}
@@ -217,10 +217,10 @@ function RevealHint({ outcome, onNext }: { outcome: Outcome | undefined; onNext:
   return (
     <div className="reveal-hint">
       <span className={`verdict is-${outcome}`}>
-        {outcome === 'correct' ? 'Got it!' : 'Not this time'}
+        {outcome === 'correct' ? 'Goed zo!' : 'Deze keer niet'}
       </span>
       <button className="link-button" onClick={onNext}>
-        Next (Enter) →
+        Volgende (Enter) →
       </button>
     </div>
   )

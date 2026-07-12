@@ -27,7 +27,7 @@ export default function PhotoCard({ person, revealed, outcome }: PhotoCardProps)
       }
     >
       <div className="print-photo">
-        <img key={person.id} src={person.url} alt="A face to name" draggable={false} />
+        <img key={person.id} src={person.url} alt="Een gezicht om te raden" draggable={false} />
       </div>
       <figcaption className="print-caption">
         {revealed ? (
@@ -40,7 +40,7 @@ export default function PhotoCard({ person, revealed, outcome }: PhotoCardProps)
             {person.name}
           </motion.span>
         ) : (
-          <span className="caption-mystery">who is this?</span>
+          <span className="caption-mystery">wie is dit?</span>
         )}
       </figcaption>
     </motion.figure>

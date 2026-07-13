@@ -62,7 +62,7 @@ export default function Results({ summary, mode, onPlayAgain, onChangeSetup }: R
 
       <div className="results-actions">
         <button className="button button-start" onClick={onPlayAgain}>
-          Opnieuw spelen — {mode === 'open' ? 'open antwoord' : 'meerkeuze'}
+          Opnieuw spelen · {mode === 'open' ? 'open antwoord' : 'meerkeuze'}
         </button>
         <button className="button button-ghost" onClick={onChangeSetup}>
           Modus of foto's wijzigen

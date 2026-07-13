@@ -26,18 +26,30 @@ body {
 body {
   font-family: var(--body);
   color: var(--paper);
-  background:
-    radial-gradient(120% 90% at 50% 12%, var(--cobalt-light) 0%, var(--cobalt) 45%, var(--cobalt-deep) 100%);
-  background-attachment: fixed;
+  background: var(--cobalt-deep);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Fixed gradient behind everything: avoids iOS `background-attachment: fixed`
+   jank while still covering the viewport when the page scrolls. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(120% 90% at 50% 12%, var(--cobalt-light) 0%, var(--cobalt) 45%, var(--cobalt-deep) 100%);
 }
 
 /* ---------- layout shells ---------- */
 
 .studio {
   min-height: 100vh;
+  min-height: 100dvh; /* keeps the frame within the visible area under mobile browser chrome */
   display: grid;
   place-items: center;
-  padding: 24px;
+  padding: clamp(16px, 4vw, 24px);
+  padding-inline: max(clamp(16px, 4vw, 24px), env(safe-area-inset-left), env(safe-area-inset-right));
+  padding-bottom: max(clamp(16px, 4vw, 24px), env(safe-area-inset-bottom));
 }
 
 .screen {
@@ -97,6 +109,7 @@ body {
   border-radius: 999px;
   padding: 0.8rem 1.6rem;
   cursor: pointer;
+  touch-action: manipulation;
   transition:
     transform 0.15s ease,
     box-shadow 0.15s ease;
@@ -139,9 +152,11 @@ body {
   color: var(--paper);
   background: none;
   border: none;
+  padding: 0.35rem 0.1rem;
   text-decoration: underline;
   text-underline-offset: 3px;
   cursor: pointer;
+  touch-action: manipulation;
   opacity: 0.85;
 }
 
@@ -283,6 +298,7 @@ body {
   flex-direction: column;
   gap: 0.35rem;
   cursor: pointer;
+  touch-action: manipulation;
   transition:
     border-color 0.15s ease,
     background-color 0.15s ease,
@@ -321,7 +337,7 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 1.5rem;
-  min-height: min(88vh, 780px);
+  min-height: min(88dvh, 780px);
 }
 
 .hud {
@@ -475,7 +491,9 @@ body {
 .answer-actions {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
 }
 
 .choices {
@@ -495,6 +513,7 @@ body {
   border-radius: 14px;
   padding: 0.85rem 1rem;
   cursor: pointer;
+  touch-action: manipulation;
   display: flex;
   align-items: center;
   gap: 0.6rem;
@@ -691,7 +710,27 @@ body {
   }
 }
 
+/* Touch devices: :hover sticks after a tap, freezing cards in their lifted
+   state. Cancel the lift where there's no real pointer to hover with. */
+@media (hover: none) {
+  .button:hover:not(:disabled),
+  .choice:hover:not(:disabled),
+  .mode-card:hover {
+    transform: none;
+  }
+}
+
 @media (max-width: 520px) {
+  .landing {
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+  }
+
+  .dropzone {
+    padding: 2rem 1.25rem;
+    border-radius: 20px;
+  }
+
   .mode-picker,
   .choices {
     grid-template-columns: 1fr;
@@ -699,5 +738,63 @@ body {
 
   .stage {
     min-height: 300px;
+  }
+
+  /* The stacked-polaroid deck is ~414px wide at full size, which forces
+     horizontal page scroll on phones. Shrink the prints and tighten the
+     overlap so all eight fit within a 320px viewport. */
+  .mini-print {
+    padding: 3px 3px 8px;
+    margin-left: -18px;
+  }
+
+  .mini-print img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .roster-more {
+    margin-left: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .hud {
+    font-size: 0.85rem;
+  }
+
+  .hud-brand {
+    font-size: 1rem;
+  }
+}
+
+/* Short viewports (landscape phones, split view): reclaim vertical space so
+   the whole round fits without the stage padding dominating. */
+@media (max-height: 640px) {
+  .game {
+    gap: 1rem;
+    min-height: auto;
+  }
+
+  .stage {
+    min-height: 200px;
+  }
+
+  /* Tie the photo to viewport height so the HUD and answers stay in view
+     when a phone is held in landscape. */
+  .print-photo {
+    width: min(300px, 72vw, 52vh);
+  }
+
+  .print {
+    padding: 10px 10px 0;
+  }
+
+  .print-caption {
+    height: 48px;
+  }
+
+  .landing {
+    gap: 1.25rem;
+    padding: 1rem 0;
   }
 }

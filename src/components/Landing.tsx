@@ -81,7 +81,7 @@ export default function Landing({ people, onRosterChange, onStart }: LandingProp
         >
           <p className="dropzone-title">Sleep een map met gezichten hierheen</p>
           <p className="dropzone-hint">
-            Elke bestandsnaam wordt het antwoord — <code>maya-patel.jpg</code> is Maya Patel.
+            Elke bestandsnaam wordt het antwoord: <code>maya-patel.jpg</code> is Maya Patel.
           </p>
           <div className="dropzone-actions">
             <button className="button" onClick={() => folderInput.current?.click()}>
@@ -141,7 +141,7 @@ export default function Landing({ people, onRosterChange, onStart }: LandingProp
           </div>
 
           <button className="button button-start" onClick={() => onStart(mode)}>
-            Start — {people.length} rondes
+            Start · {people.length} rondes
           </button>
         </div>
       )}
